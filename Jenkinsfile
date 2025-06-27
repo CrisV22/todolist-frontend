@@ -28,13 +28,13 @@ pipeline {
                 echo "Current branch: ${env.BRANCH_NAME}"
             }
         }
-        when {
-            anyOf {
-                expression { env.GIT_BRANCH == 'origin/main' }
-                expression { env.BRANCH_NAME == 'main' }
-            }
-        }
         stage('Deploy') {
+            when {
+                anyOf {
+                    expression { env.GIT_BRANCH == 'origin/main' }
+                    expression { env.BRANCH_NAME == 'main' }
+                }
+            }
             steps {
                 echo 'Deploying to production...'
                 // coloque o código de deploy aqui
