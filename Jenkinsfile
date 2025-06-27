@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Construindo os containers...'
-                // bat 'npm install'
+                bat 'npm install'
             }
         }
         stage('Test') {
