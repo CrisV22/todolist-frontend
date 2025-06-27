@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Construindo os containers...'
-                bat 'npm install'
+                // bat 'npm install'
             }
         }
         stage('Test') {
@@ -20,6 +20,11 @@ pipeline {
                 //     bat 'npm install'
                 //     bat 'npx cypress run'
                 // }
+            }
+        }
+        stage('Debug Branch') {
+            steps {
+                echo "Current branch: ${env.BRANCH_NAME}"
             }
         }
         stage('Deploy') {
