@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from 'axios'
+
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+console.log(import.meta.env.VITE_API_URL)
 export const api = axios.create({
-  baseURL: 'https://todolist-1u1y.onrender.com', // production
-  // baseURL: 'http://localhost:3000', // back-end local
-  // baseURL: 'http://backend:3000', // back-end local
+  baseURL: VITE_API_URL,
 });
