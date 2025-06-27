@@ -22,15 +22,15 @@ pipeline {
                 // bat 'npm install'
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         echo 'Testing..'
-        //         dir('frontend\\cypress') {
-        //             bat 'npm install'
-        //             bat 'npx cypress run'
-        //         }
-        //     }
-        // } /
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                // dir('frontend\\cypress') {
+                //     bat 'npm install'
+                //     bat 'npx cypress run'
+                // }
+            }
+        }
         stage('Deploy') {
             when {
                 branch 'main'
