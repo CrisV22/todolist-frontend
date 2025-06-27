@@ -23,5 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+.env.production
+
 notes.txt
 jenkins
