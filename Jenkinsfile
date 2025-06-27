@@ -24,15 +24,20 @@ pipeline {
         }
         stage('Debug Branch') {
             steps {
+                echo "Current branch: ${env.GIT_BRANCH}"
                 echo "Current branch: ${env.BRANCH_NAME}"
             }
         }
-        stage('Deploy') {
-            when {
-                branch 'main'
+        when {
+            anyOf {
+                expression { env.GIT_BRANCH == 'origin/main' }
+                expression { env.BRANCH_NAME == 'main' }
             }
+        }
+        stage('Deploy') {
             steps {
                 echo 'Deploying to production...'
+                // coloque o código de deploy aqui
             }
         }
     }
