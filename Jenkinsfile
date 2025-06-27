@@ -5,6 +5,7 @@ pipeline {
         RENDER_API_KEY = credentials('render-api-key')
         RENDER_FE_DEPLOY_HOOK = credentials('render-todolist-frontend')
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -15,12 +16,10 @@ pipeline {
                 echo 'Checking completed sucessfully!'
             }
         }
-    }
-    stages {
         stage('Build') {
             steps {
                 echo 'Construindo os containers...'
-                bat 'npm install'
+                // bat 'npm install'
             }
         }
         // stage('Test') {
