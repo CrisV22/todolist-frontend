@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking...'
-                git branch: 'main', 
+                git branch: 'main',
                     url: 'https://github.com/CrisV22/todolist-frontend',
                     credentialsId: 'github-pat-global'
                 echo 'Checking completed sucessfully!'
