@@ -53,7 +53,7 @@ describe('Criação de lembretes rápidos por uma mãe durante as tarefas domés
       .click();
 
     // Exclui a tarefa
-    cy.get('ul li:last-child button')
+    cy.get('ul li:first-child button')
       .click();
 
     // Verifica se foi removida
