@@ -5,7 +5,17 @@ pipeline {
         RENDER_API_KEY = credentials('render-api-key')
         RENDER_FE_DEPLOY_HOOK = credentials('render-todolist-frontend')
     }
-
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking...'
+                git branch: 'main', 
+                    url: 'https://github.com/CrisV22/todolist-frontend',
+                    credentialsId: 'github-pat-global'
+                echo 'Checking completed sucessfully!'
+            }
+        }
+    }
     stages {
         stage('Build') {
             steps {
