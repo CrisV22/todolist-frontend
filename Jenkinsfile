@@ -7,15 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo 'Checking...'
-                git branch: 'main',
-                    url: 'https://github.com/CrisV22/todolist-frontend',
-                    credentialsId: 'github-pat-global'
-                echo 'Checking completed sucessfully!'
-            }
-        }
         stage('Build') {
             steps {
                 echo 'Construindo os containers...'
