@@ -21,7 +21,7 @@ pipeline {
         //             bat 'npx cypress run'
         //         }
         //     }
-        // }
+        // } /
         stage('Deploy') {
             when {
                 branch 'main'
