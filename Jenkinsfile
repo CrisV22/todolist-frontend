@@ -19,7 +19,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                // dir('frontend\\cypress') {
+                // dir('cypress') {
                 //     echo 'Directory before npm install'
                 //     bat 'dir'
                 //     bat 'npm install'
