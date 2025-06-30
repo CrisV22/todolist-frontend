@@ -10,16 +10,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Construindo os containers...'
-                // bat 'npm install'
+                bat 'npm install'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                // dir('frontend\\cypress') {
-                //     bat 'npm install'
-                //     bat 'npx cypress run'
-                // }
+                bat 'dir'
+                dir('frontend\\cypress') {
+                    bat 'dir'
+                    bat 'npm install'
+                    bat 'npx cypress run'
+                }
             }
         }
         // stage('Debug Branch') {
