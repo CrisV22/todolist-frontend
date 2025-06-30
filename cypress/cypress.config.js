@@ -14,6 +14,7 @@ module.exports = defineConfig({
     screenshotOnRunFailure: false,
     videosFolder: "videos",
     video: false,
+    downloadsFolder: "downloads",
     fixturesFolder: "fixtures",
     supportFolder: "support",
     defaultBrowser: "chrome",

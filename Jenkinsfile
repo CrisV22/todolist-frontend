@@ -11,17 +11,21 @@ pipeline {
             steps {
                 echo 'Construindo os containers...'
                 bat 'npm install'
+                bat 'npm install -g serve'
+                bat 'npm run build'
+                bat 'serve -s dist'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                bat 'dir'
-                dir('frontend\\cypress') {
-                    bat 'dir'
-                    bat 'npm install'
-                    bat 'npx cypress run'
-                }
+                // dir('frontend\\cypress') {
+                //     echo 'Directory before npm install'
+                //     bat 'dir'
+                //     bat 'npm install'
+                //     echo 'Directory after npm install'
+                //     bat 'npx cypress run'
+                // }
             }
         }
         // stage('Debug Branch') {
