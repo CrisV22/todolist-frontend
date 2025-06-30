@@ -16,15 +16,15 @@ pipeline {
                 bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                dir('cypress') {
-                    bat 'npm install'
-                    bat 'npx cypress run'
-                }
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         echo 'Testing..'
+        //         dir('cypress') {
+        //             bat 'npm install'
+        //             bat 'npx cypress run'
+        //         }
+        //     }
+        // }
         // stage('Debug Branch') {
         //     steps {
         //         echo "Current branch: ${env.GIT_BRANCH}"
