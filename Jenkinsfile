@@ -13,10 +13,7 @@ pipeline {
                 bat 'npm install'
                 bat 'npm install -g serve'
                 bat 'npm run build'
-                bat '''
-                    powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"
-                    timeout /t 10
-                    '''
+                bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
             }
         }
         stage('Test') {
