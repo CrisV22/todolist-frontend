@@ -19,13 +19,11 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                // dir('cypress') {
-                //     echo 'Directory before npm install'
-                //     bat 'dir'
-                //     bat 'npm install'
-                //     echo 'Directory after npm install'
-                //     bat 'npx cypress run'
-                // }
+                dir('cypress') {
+                    bat 'dir'
+                    bat 'npm install'
+                    bat 'npx cypress run'
+                }
             }
         }
         // stage('Debug Branch') {
