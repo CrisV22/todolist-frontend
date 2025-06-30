@@ -20,7 +20,6 @@ pipeline {
             steps {
                 echo 'Testing..'
                 dir('cypress') {
-                    bat 'dir'
                     bat 'npm install'
                     bat 'npx cypress run'
                 }
@@ -39,8 +38,15 @@ pipeline {
                 }
             }
             steps {
-                echo 'Deploying to production...'
-                // coloque o código de deploy aqui
+                script {
+                    echo "Deploying Frontend..."
+                    def frontendResponse = httpRequest(
+                        url: "${RENDER_FE_DEPLOY_HOOK}",
+                        httpMode: 'POST',
+                        validResponseCodes: '200:299'
+                    )
+                    echo "Response: ${frontendResponse}"
+                }
             }
         }
     }
