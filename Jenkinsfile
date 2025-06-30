@@ -22,17 +22,16 @@ pipeline {
                 // }
             }
         }
-        stage('Debug Branch') {
-            steps {
-                echo "Current branch: ${env.GIT_BRANCH}"
-                echo "Current branch: ${env.BRANCH_NAME}"
-            }
-        }
+        // stage('Debug Branch') {
+        //     steps {
+        //         echo "Current branch: ${env.GIT_BRANCH}"
+        //         echo "Current branch: ${env.BRANCH_NAME}" //'main'
+        //     }
+        // }
         stage('Deploy') {
             when {
                 anyOf {
                     expression { env.GIT_BRANCH == 'origin/main' }
-                    expression { env.BRANCH_NAME == 'main' }
                 }
             }
             steps {
