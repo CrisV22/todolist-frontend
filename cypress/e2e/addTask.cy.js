@@ -1,5 +1,5 @@
 describe('Criação de lembretes rápidos por uma mãe durante as tarefas domésticas', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/');
   });
 
