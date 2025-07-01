@@ -10,28 +10,17 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building containers...'
-                bat 'dir'
                 bat 'npm install'
-                bat '''
-                powershell -Command "Start-Process 'npm.cmd' -ArgumentList 'run', 'dev' -WindowStyle Hidden"
-                '''
-                // bat 'npm install -g serve'
-                // bat 'npm run build'
-                // bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
+                bat 'docker-compose up -d --build'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                // dir('cypress') {
-                //     bat 'npm install'
-                //     bat 'npx cypress run'
-                // }
-                bat '''
-                    cd cypress
-                    npm install
-                    npx cypress run
-                '''
+                dir('cypress') {
+                    bat 'npm install'
+                    bat 'npx cypress run'
+                }
             }
         }
         // stage('Debug Branch') {
@@ -61,6 +50,9 @@ pipeline {
     }
 
     post {
+        always {
+            bat 'docker-compose down'
+        }
         success {
             echo 'Build was successful!'
         }
