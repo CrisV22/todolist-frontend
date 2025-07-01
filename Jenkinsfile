@@ -10,8 +10,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building containers...'
+                bat 'dir'
                 bat 'npm install'
-                bat '''powershell -Command "Start-Process 'npm.cmd' -ArgumentList 'run', 'dev' -WindowStyle Hidden"'''
+                bat '''
+                powershell -Command "Start-Process 'npm.cmd' -ArgumentList 'run', 'dev' -WindowStyle Hidden"
+                cd cypress
+                npm install
+                npx cypress run
+                '''
                 // bat 'npm install -g serve'
                 // bat 'npm run build'
                 // bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
@@ -20,10 +26,10 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                dir('cypress') {
-                    bat 'npm install'
-                    bat 'npx cypress run'
-                }
+                // dir('cypress') {
+                //     bat 'npm install'
+                //     bat 'npx cypress run'
+                // }
             }
         }
         // stage('Debug Branch') {
@@ -32,24 +38,24 @@ pipeline {
         //         echo "Current branch: ${env.BRANCH_NAME}" //'main'
         //     }
         // }
-        stage('Deploy') {
-            when {
-                anyOf {
-                    expression { env.GIT_BRANCH == 'origin/main' }
-                }
-            }
-            steps {
-                script {
-                    echo "Deploying..."
-                    def frontendResponse = httpRequest(
-                        url: "${RENDER_FE_DEPLOY_HOOK}",
-                        httpMode: 'POST',
-                        validResponseCodes: '200:299'
-                    )
-                    echo "Response: ${frontendResponse}"
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     when {
+        //         anyOf {
+        //             expression { env.GIT_BRANCH == 'origin/main' }
+        //         }
+        //     }
+        //     steps {
+        //         script {
+        //             echo "Deploying..."
+        //             def frontendResponse = httpRequest(
+        //                 url: "${RENDER_FE_DEPLOY_HOOK}",
+        //                 httpMode: 'POST',
+        //                 validResponseCodes: '200:299'
+        //             )
+        //             echo "Response: ${frontendResponse}"
+        //         }
+        //     }
+        // }
     }
 
     post {
