@@ -40,6 +40,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying Frontend..."
+                    echo "Hook URL: ${RENDER_FE_DEPLOY_HOOK}"
                     def frontendResponse = httpRequest(
                         url: "${RENDER_FE_DEPLOY_HOOK}",
                         httpMode: 'POST',
