@@ -20,52 +20,52 @@ describe('Criação de lembretes rápidos por uma mãe durante as tarefas domés
       .and('be.visible');
   });
 
-  // it('Deve permitir adicionar a tarefa "Fazer compras no mercado"', () => {
-  //   // Preenche o campo de nova tarefa com o lembrete
-  //   cy.get('#nome-todo')
-  //     .type('Fazer compras no mercado');
+  it('Deve permitir adicionar a tarefa "Fazer compras no mercado"', () => {
+    // Preenche o campo de nova tarefa com o lembrete
+    cy.get('#nome-todo')
+      .type('Fazer compras no mercado');
 
-  //   // Clica no botão de adicionar
-  //   cy.get('#add-button')
-  //     .should('be.enabled')
-  //     .click();
+    // Clica no botão de adicionar
+    cy.get('#add-button')
+      .should('be.enabled')
+      .click();
 
-  //   // Verifica se a tarefa foi adicionada corretamente
-  //   cy.contains('Fazer compras no mercado')
-  //     .should('exist')
-  //     .and('be.visible');
-  // });
+    // Verifica se a tarefa foi adicionada corretamente
+    cy.contains('Fazer compras no mercado')
+      .should('exist')
+      .and('be.visible');
+  });
 
-  // it('Deve permitir excluir uma tarefa adicionada por engano', () => {
-  //   // Preenche o campo de nova tarefa com o lembrete
-  //   cy.get('#nome-todo')
-  //     .type('*@%$');
+  it('Deve permitir excluir uma tarefa adicionada por engano', () => {
+    // Preenche o campo de nova tarefa com o lembrete
+    cy.get('#nome-todo')
+      .type('*@%$');
 
-  //   // Clica no botão de adicionar
-  //   cy.get('#add-button')
-  //     .should('be.enabled')
-  //     .click();
+    // Clica no botão de adicionar
+    cy.get('#add-button')
+      .should('be.enabled')
+      .click();
 
-  //   // Aguardando adição da tarefa
-  //   cy.contains('*@%$')
-  //     .should('exist');
+    // Aguardando adição da tarefa
+    cy.contains('*@%$')
+      .should('exist');
 
-  //   // Exclui a tarefa
-  //   cy.get('ul li:last-child button')
-  //     .click();
+    // Exclui a tarefa
+    cy.get('ul li:last-child button')
+      .click();
 
-  //   // Verifica se foi removida
-  //   cy.contains('*@%$')
-  //     .should('not.exist');
-  // });
+    // Verifica se foi removida
+    cy.contains('*@%$')
+      .should('not.exist');
+  });
 
-  // after(() => {
-  //   cy.get('ul li').then(($items) => {
-  //     if ($items.length) {
-  //       cy.wrap($items).each(($el) => {
-  //         cy.wrap($el).find('button').click({ force: true });
-  //       });
-  //     }
-  //   });
-  // });
+  after(() => {
+    cy.get('ul li').then(($items) => {
+      if ($items.length) {
+        cy.wrap($items).each(($el) => {
+          cy.wrap($el).find('button').click({ force: true });
+        });
+      }
+    });
+  });
 });
