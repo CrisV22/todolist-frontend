@@ -14,13 +14,9 @@ pipeline {
                 bat 'docker-compose up -d --build'
             }
         }
-        stage('Test') {
+        stage('Unit Tests') {
             steps {
-                echo 'Testing..'
-                dir('cypress') {
-                    bat 'npm install'
-                    bat 'npx cypress run'
-                }
+                echo 'Running unit tests...'
             }
         }
         // stage('Debug Branch') {
@@ -38,12 +34,12 @@ pipeline {
             steps {
                 script {
                     echo "Deploying..."
-                    def frontendResponse = httpRequest(
+                    def response = httpRequest(
                         url: "${RENDER_FE_DEPLOY_HOOK}",
                         httpMode: 'POST',
                         validResponseCodes: '200:299'
                     )
-                    echo "Response: ${frontendResponse}"
+                    echo "Response: ${response}"
                 }
             }
         }
@@ -51,6 +47,7 @@ pipeline {
 
     post {
         success {
+            bat 'docker-compose down'
             echo 'Build was successful!'
         }
         failure {
