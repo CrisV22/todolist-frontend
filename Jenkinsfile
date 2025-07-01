@@ -32,7 +32,7 @@ pipeline {
                 }
             }
             steps {
-                build job: 'todolist-cypress'
+                build job: 'PIPELINE_CYPRESS'
             }
         }
         stage('Deploy') {
