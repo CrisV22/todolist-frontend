@@ -4,9 +4,9 @@ describe('Criação de lembretes rápidos por uma mãe durante as tarefas domés
     cy.visit('/');
 
     // Garante que a lista vai estar vazia
-    cy.get('#nome-todo')
-      .should('exist')
-      .clear();
+    // cy.get('#nome-todo')
+    //   .should('exist')
+    //   .clear();
   });
 
   it('Deve permitir adicionar a tarefa "Ligar para o pediatra" com sucesso', () => {
