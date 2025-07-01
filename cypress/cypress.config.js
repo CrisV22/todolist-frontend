@@ -6,8 +6,8 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     // baseUrl: "http://frontend:5173",
-    // baseUrl: "http://localhost:5173/",
-    baseUrl: "http://localhost:3000/",
+    baseUrl: "http://localhost:5173/",
+    // baseUrl: "http://localhost:3000/",
     supportFile: false,
     specPattern: "e2e/**/*.cy.js",
     screenshotsFolder: "screenshots",

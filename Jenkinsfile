@@ -11,15 +11,15 @@ pipeline {
             steps {
                 echo 'Building containers...'
                 bat 'npm install'
-                bat 'npm install -g serve'
-                bat 'npm run build'
-                bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
+                bat 'nom run dev'
+                // bat 'npm install -g serve'
+                // bat 'npm run build'
+                // bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                bat "timeout /t 4"
                 dir('cypress') {
                     bat 'npm install'
                     bat 'npx cypress run'
