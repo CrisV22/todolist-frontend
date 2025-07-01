@@ -27,8 +27,7 @@ pipeline {
                 //     bat 'npm install'
                 //     bat 'npx cypress run'
                 // }
-                bat 
-                '''
+                bat '''
                     cd cypress
                     npm install
                     npx cypress run
