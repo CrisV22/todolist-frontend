@@ -24,7 +24,7 @@ pipeline {
         //         echo "Current branch: ${env.GIT_BRANCH}"
         //         echo "Current branch: ${env.BRANCH_NAME}" //'main'
         //     }
-        // } //
+        // }
         stage('Smoke Tests') {
             when {
                 anyOf {
