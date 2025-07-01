@@ -14,9 +14,6 @@ pipeline {
                 bat 'npm install'
                 bat '''
                 powershell -Command "Start-Process 'npm.cmd' -ArgumentList 'run', 'dev' -WindowStyle Hidden"
-                cd cypress
-                npm install
-                npx cypress run
                 '''
                 // bat 'npm install -g serve'
                 // bat 'npm run build'
@@ -30,6 +27,12 @@ pipeline {
                 //     bat 'npm install'
                 //     bat 'npx cypress run'
                 // }
+                bat 
+                '''
+                    cd cypress
+                    npm install
+                    npx cypress run
+                '''
             }
         }
         // stage('Debug Branch') {
