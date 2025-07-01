@@ -50,9 +50,6 @@ pipeline {
     }
 
     post {
-        always {
-            // bat 'docker-compose down'
-        }
         success {
             echo 'Build was successful!'
         }
