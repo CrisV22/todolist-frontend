@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Building containers...'
                 bat 'npm install'
-                bat 'npm run dev'
+                bat '''powershell -Command "Start-Process 'npm.cmd' -ArgumentList 'run', 'dev' -WindowStyle Hidden"'''
                 // bat 'npm install -g serve'
                 // bat 'npm run build'
                 // bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
