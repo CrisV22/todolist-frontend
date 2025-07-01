@@ -52,8 +52,12 @@ describe('Criação de lembretes rápidos por uma mãe durante as tarefas domés
       .should('be.enabled')
       .click();
 
+    // Aguardando adição da tarefa
+    cy.contains('*@%$')
+      .should('exist');
+
     // Exclui a tarefa
-    cy.get('ul li:first-child button')
+    cy.get('ul li:last-child button')
       .click();
 
     // Verifica se foi removida

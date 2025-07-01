@@ -9,22 +9,22 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Construindo os containers...'
+                echo 'Building containers...'
                 bat 'npm install'
                 bat 'npm install -g serve'
                 bat 'npm run build'
                 bat '''powershell -Command "Start-Process 'serve.cmd' -ArgumentList '-s', 'dist' -WindowStyle Hidden"'''
             }
         }
-        // stage('Test') {
-        //     steps {
-        //         echo 'Testing..'
-        //         dir('cypress') {
-        //             bat 'npm install'
-        //             bat 'npx cypress run'
-        //         }
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                dir('cypress') {
+                    bat 'npm install'
+                    bat 'npx cypress run'
+                }
+            }
+        }
         // stage('Debug Branch') {
         //     steps {
         //         echo "Current branch: ${env.GIT_BRANCH}"
@@ -39,8 +39,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Deploying Frontend..."
-                    echo "Hook URL: ${RENDER_FE_DEPLOY_HOOK}"
+                    echo "Deploying..."
                     def frontendResponse = httpRequest(
                         url: "${RENDER_FE_DEPLOY_HOOK}",
                         httpMode: 'POST',
