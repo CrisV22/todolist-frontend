@@ -19,6 +19,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
+                // timeout 4
                 dir('cypress') {
                     bat 'npm install'
                     bat 'npx cypress run'
