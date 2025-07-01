@@ -11,7 +11,6 @@ RUN npm install && npm rebuild
 
 # Copia o restante do projeto
 COPY . .
-COPY .env .env
 
 # Expõe a porta do Vite
 EXPOSE 5173
