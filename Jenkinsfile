@@ -25,6 +25,16 @@ pipeline {
         //         echo "Current branch: ${env.BRANCH_NAME}" //'main'
         //     }
         // }
+        stage('Smoke Tests') {
+            when {
+                anyOf {
+                    expression { env.GIT_BRANCH == 'origin/main' }
+                }
+            }
+            steps {
+                build job: 'todolist-cypress'
+            }
+        }
         stage('Deploy') {
             when {
                 anyOf {
