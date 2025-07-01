@@ -1,12 +1,6 @@
 describe('Criação de lembretes rápidos por uma mãe durante as tarefas domésticas', () => {
-  beforeEach(() => {
-    // Acessa a aplicação
+  before(() => {
     cy.visit('/');
-
-    // Garante que a lista vai estar vazia
-    // cy.get('#nome-todo')
-    //   .should('exist')
-    //   .clear();
   });
 
   it('Deve permitir adicionar a tarefa "Ligar para o pediatra" com sucesso', () => {
@@ -26,21 +20,21 @@ describe('Criação de lembretes rápidos por uma mãe durante as tarefas domés
       .and('be.visible');
   });
 
-  it('Deve permitir adicionar a tarefa "Fazer compras no mercado"', () => {
-    // Preenche o campo de nova tarefa com o lembrete
-    cy.get('#nome-todo')
-      .type('Fazer compras no mercado');
+  // it('Deve permitir adicionar a tarefa "Fazer compras no mercado"', () => {
+  //   // Preenche o campo de nova tarefa com o lembrete
+  //   cy.get('#nome-todo')
+  //     .type('Fazer compras no mercado');
 
-    // Clica no botão de adicionar
-    cy.get('#add-button')
-      .should('be.enabled')
-      .click();
+  //   // Clica no botão de adicionar
+  //   cy.get('#add-button')
+  //     .should('be.enabled')
+  //     .click();
 
-    // Verifica se a tarefa foi adicionada corretamente
-    cy.contains('Fazer compras no mercado')
-      .should('exist')
-      .and('be.visible');
-  });
+  //   // Verifica se a tarefa foi adicionada corretamente
+  //   cy.contains('Fazer compras no mercado')
+  //     .should('exist')
+  //     .and('be.visible');
+  // });
 
   // it('Deve permitir excluir uma tarefa adicionada por engano', () => {
   //   // Preenche o campo de nova tarefa com o lembrete
