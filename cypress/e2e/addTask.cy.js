@@ -59,13 +59,13 @@ describe('Criação de lembretes rápidos por uma mãe durante as tarefas domés
       .should('not.exist');
   });
 
-  // after(() => {
-  //   cy.get('ul li').then(($items) => {
-  //     if ($items.length) {
-  //       cy.wrap($items).each(($el) => {
-  //         cy.wrap($el).find('button').click({ force: true });
-  //       });
-  //     }
-  //   });
-  // });
+  after(() => {
+    cy.get('ul li').then(($items) => {
+      if ($items.length) {
+        cy.wrap($items).each(($el) => {
+          cy.wrap($el).find('button').click({ force: true });
+        });
+      }
+    });
+  });
 });
