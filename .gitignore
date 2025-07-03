@@ -27,3 +27,5 @@ dist-ssr
 .env.production
 
 notes.txt
+.scannerwork
+sonar-project.properties
