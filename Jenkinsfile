@@ -49,7 +49,7 @@ pipeline {
                     // Usa as variáveis de ambiente do Sonar (como o token e a URL)
                     withSonarQubeEnv('sonar-server') { // Troque pelo nome configurado no Jenkins
                         // Executa o scanner (no Windows, com bat)
-                        bat "${scannerHome}\\bin\\sonar-scanner"
+                        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=todolist-frontend"
                         // bat ''' sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqa_4e6ae113e6468116e467284afb68eaf616d0ae1e -Dsonar.projectKey=todolist-frontend '''
                     }
                 }
