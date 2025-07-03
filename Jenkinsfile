@@ -48,7 +48,7 @@ pipeline {
                     echo "Using Sonar Scanner from: ${scannerHome}"
                     withSonarQubeEnv('sonar-server') {
                         echo "Running SonarQube analysis for project: ${SONAR_PROJECT_KEY}"
-                        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY}}"
+                        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY}"
                     }
                 }
             }
