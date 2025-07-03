@@ -40,9 +40,6 @@ pipeline {
         //         build job: 'PIPELINE_CYPRESS'
         //     }
         // }
-        stage('SCM') {
-            checkout scm
-        }
         stage('SonarQube Analysis') {
             def scannerHome = tool 'sonar-scanner';
             withSonarQubeEnv() {
