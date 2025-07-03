@@ -42,9 +42,15 @@ pipeline {
         // }
         stage('SonarQube Analysis') {
             steps {
-                def scannerHome = tool 'sonar-scanner';
-                withSonarQubeEnv() {
-                bat "${scannerHome}/bin/sonar-scanner"
+                script {
+                    // Define a variável scannerHome com o caminho da instalação do Sonar Scanner
+                    def scannerHome = tool name: 'sonar-scanner' // Nome cadastrado em "Global Tool Configuration"
+
+                    // Usa as variáveis de ambiente do Sonar (como o token e a URL)
+                    withSonarQubeEnv('MySonarQubeServer') { // Troque pelo nome configurado no Jenkins
+                        // Executa o scanner (no Windows, com bat)
+                        bat "${scannerHome}\\bin\\sonar-scanner"
+                    }
                 }
             }
         }
