@@ -52,26 +52,44 @@ pipeline {
                     }
                 }
             }
-        }
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                    echo "Quality Gate passed"
-                    // Uncomment the following lines if you have the SonarQube plugin installed
-                    // waitForQualityGate abortPipeline: true
-                    // echo "Quality Gate passed"
+
+            post {
+                success {
+                    script {
+                        timeout(time: 1, unit: 'MINUTES') {
+                            def qualityGate = waitForQualityGate()
+                            if (qualityGate.status != 'OK') {
+                                error "SonarQube Quality Gate failed: ${qualityGate.status}"
+                            } else {
+                                echo "SonarQube analysis passed."
+                            }
+                        }
+                    }
                 }
-                // script {
-                //     def qualityGate = waitForQualityGate abortPipeline: true
-                //     if (qualityGate.status != 'OK') {
-                //         error "Quality Gate failed: ${qualityGate.status}"
-                //     } else {
-                //         echo "Quality Gate passed: ${qualityGate.status}"
-                //     }
-                // }
+                failure {
+                    echo "SonarQube analysis failed during execution."
+                }
             }
         }
+        // stage('Quality Gate') {
+        //     steps {
+        //         timeout(time: 2, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //             echo "Quality Gate passed"
+        //             // Uncomment the following lines if you have the SonarQube plugin installed
+        //             // waitForQualityGate abortPipeline: true
+        //             // echo "Quality Gate passed"
+        //         }
+        //         // script {
+        //         //     def qualityGate = waitForQualityGate abortPipeline: true
+        //         //     if (qualityGate.status != 'OK') {
+        //         //         error "Quality Gate failed: ${qualityGate.status}"
+        //         //     } else {
+        //         //         echo "Quality Gate passed: ${qualityGate.status}"
+        //         //     }
+        //         // }
+        //     }
+        // }
         // stage('Deploy') {
         //     when {
         //         anyOf {
