@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
-    // environment {
-    //     RENDER_API_KEY = credentials('render-api-key')
-    //     RENDER_FE_DEPLOY_HOOK = credentials('render-todolist-frontend')
-    // }
+    environment {
+        RENDER_API_KEY = credentials('render-api-key')
+        RENDER_FE_DEPLOY_HOOK = credentials('render-todolist-frontend')
+        SONAR_PROJECT_KEY = 'todolist-frontend'
+    }
 
     stages {
         stage('Build') {
@@ -43,14 +44,11 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    // Define a variável scannerHome com o caminho da instalação do Sonar Scanner
-                    def scannerHome = tool 'sonar-scanner' // Nome cadastrado em "Global Tool Configuration"
+                    def scannerHome = tool 'sonar-scanner'
                     echo "Using Sonar Scanner from: ${scannerHome}"
-                    // Usa as variáveis de ambiente do Sonar (como o token e a URL)
-                    withSonarQubeEnv('sonar-server') { // Troque pelo nome configurado no Jenkins
-                        // Executa o scanner (no Windows, com bat)
-                        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=todolist-frontend"
-                        // bat ''' sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqa_4e6ae113e6468116e467284afb68eaf616d0ae1e -Dsonar.projectKey=todolist-frontend '''
+                    withSonarQubeEnv('sonar-server') {
+                        echo "Running SonarQube analysis for project: ${SONAR_PROJECT_KEY}"
+                        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY}}"
                     }
                 }
             }
