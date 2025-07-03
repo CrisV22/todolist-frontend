@@ -53,6 +53,25 @@ pipeline {
                 }
             }
         }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                    echo "Quality Gate passed"
+                    // Uncomment the following lines if you have the SonarQube plugin installed
+                    // waitForQualityGate abortPipeline: true
+                    // echo "Quality Gate passed"
+                }
+                // script {
+                //     def qualityGate = waitForQualityGate abortPipeline: true
+                //     if (qualityGate.status != 'OK') {
+                //         error "Quality Gate failed: ${qualityGate.status}"
+                //     } else {
+                //         echo "Quality Gate passed: ${qualityGate.status}"
+                //     }
+                // }
+            }
+        }
         // stage('Deploy') {
         //     when {
         //         anyOf {
