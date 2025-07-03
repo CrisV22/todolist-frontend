@@ -41,7 +41,7 @@ pipeline {
         //         build job: 'PIPELINE_CYPRESS'
         //     }
         // }
-        stage('SonarQube Analysis') {
+        stage('SonarQube') {
             steps {
                 script {
                     def scannerHome = tool 'sonar-scanner'
