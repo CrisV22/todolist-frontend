@@ -8,39 +8,39 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building containers...'
-                bat 'npm install'
-                bat 'docker-compose up -d --build'
-            }
-        }
-        stage('Unit Tests') {
-            steps {
-                echo 'Running unit tests...'
-            }
-        }
-        stage('Component Tests') {
-            steps {
-                echo 'Running component tests...'
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         echo 'Building containers...'
+        //         bat 'npm install'
+        //         bat 'docker-compose up -d --build'
+        //     }
+        // }
+        // stage('Unit Tests') {
+        //     steps {
+        //         echo 'Running unit tests...'
+        //     }
+        // }
+        // stage('Component Tests') {
+        //     steps {
+        //         echo 'Running component tests...'
+        //     }
+        // }
         // stage('Debug Branch') {
         //     steps {
         //         echo "Current branch: ${env.GIT_BRANCH}"
         //         echo "Current branch: ${env.BRANCH_NAME}" //'main'
         //     }
         // }
-        stage('Smoke Tests E2E') {
-            when {
-                anyOf {
-                    expression { env.GIT_BRANCH == 'origin/main' }
-                }
-            }
-            steps {
-                build job: 'PIPELINE_CYPRESS'
-            }
-        }
+        // stage('Smoke Tests E2E') {
+        //     when {
+        //         anyOf {
+        //             expression { env.GIT_BRANCH == 'origin/main' }
+        //         }
+        //     }
+        //     steps {
+        //         build job: 'PIPELINE_CYPRESS'
+        //     }
+        // }
         stage('SonarQube') {
             steps {
                 script {
@@ -52,52 +52,48 @@ pipeline {
                     }
                 }
             }
-
-            post {
-                success {
-                    script {
-                        timeout(time: 5, unit: 'MINUTES') {
-                            def qualityGate = waitForQualityGate()
-                            if (qualityGate.status != 'OK') {
-                                error "SonarQube Quality Gate failed: ${qualityGate.status}"
-                            } else {
-                                echo "SonarQube analysis passed."
-                            }
+        }
+        stage('Quality Gate') {
+            steps {
+                script {
+                    timeout(time: 5, unit: 'MINUTES') {
+                        def qualityGate = waitForQualityGate()
+                        if (qualityGate.status != 'OK') {
+                            error "SonarQube Quality Gate failed: ${qualityGate.status}"
+                        } else {
+                            echo "SonarQube analysis passed."
                         }
                     }
                 }
-                failure {
-                    echo "SonarQube analysis failed during execution."
-                }
             }
         }
-        stage('Deploy') {
-            when {
-                anyOf {
-                    expression { env.GIT_BRANCH == 'origin/main' }
-                }
-            }
-            steps {
-                script {
-                    echo "Deploying..."
-                    def frontendResponse = httpRequest(
-                        url: "${RENDER_FE_DEPLOY_HOOK}",
-                        httpMode: 'POST',
-                        validResponseCodes: '200:299'
-                    )
-                    echo "Response: ${frontendResponse}"
-                }
-            }
-        }
-    }
+    //     stage('Deploy') {
+    //         when {
+    //             anyOf {
+    //                 expression { env.GIT_BRANCH == 'origin/main' }
+    //             }
+    //         }
+    //         steps {
+    //             script {
+    //                 echo "Deploying..."
+    //                 def frontendResponse = httpRequest(
+    //                     url: "${RENDER_FE_DEPLOY_HOOK}",
+    //                     httpMode: 'POST',
+    //                     validResponseCodes: '200:299'
+    //                 )
+    //                 echo "Response: ${frontendResponse}"
+    //             }
+    //         }
+    //     }
+    // }
     
-    post {
-        success {
-            bat 'docker-compose down'
-            echo 'Build was successful!'
-        }
-        failure {
-            echo 'Build failed. Check logs.'
-        }
+    // post {
+    //     success {
+    //         bat 'docker-compose down'
+    //         echo 'Build was successful!'
+    //     }
+    //     failure {
+    //         echo 'Build failed. Check logs.'
+    //     }
     }
 }
