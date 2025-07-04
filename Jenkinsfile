@@ -11,8 +11,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building containers...'
-                // bat 'npm install'
-                // bat 'docker-compose up -d --build'
+                bat 'npm install'
+                bat 'docker-compose up -d --build'
             }
         }
         // stage('Unit Tests') {
@@ -71,53 +71,33 @@ pipeline {
                 }
             }
         }
-        
-        // stage('Quality Gate') {
-        //     steps {
-        //         timeout(time: 2, unit: 'MINUTES') {
-        //             waitForQualityGate abortPipeline: true
-        //             echo "Quality Gate passed"
-        //             // Uncomment the following lines if you have the SonarQube plugin installed
-        //             // waitForQualityGate abortPipeline: true
-        //             // echo "Quality Gate passed"
-        //         }
-        //         // script {
-        //         //     def qualityGate = waitForQualityGate abortPipeline: true
-        //         //     if (qualityGate.status != 'OK') {
-        //         //         error "Quality Gate failed: ${qualityGate.status}"
-        //         //     } else {
-        //         //         echo "Quality Gate passed: ${qualityGate.status}"
-        //         //     }
-        //         // }
-        //     }
-        // }
-        // stage('Deploy') {
-        //     when {
-        //         anyOf {
-        //             expression { env.GIT_BRANCH == 'origin/main' }
-        //         }
-        //     }
-        //     steps {
-        //         script {
-        //             echo "Deploying..."
-        //             def frontendResponse = httpRequest(
-        //                 url: "${RENDER_FE_DEPLOY_HOOK}",
-        //                 httpMode: 'POST',
-        //                 validResponseCodes: '200:299'
-        //             )
-        //             echo "Response: ${frontendResponse}"
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            when {
+                anyOf {
+                    expression { env.GIT_BRANCH == 'origin/main' }
+                }
+            }
+            steps {
+                script {
+                    echo "Deploying..."
+                    def frontendResponse = httpRequest(
+                        url: "${RENDER_FE_DEPLOY_HOOK}",
+                        httpMode: 'POST',
+                        validResponseCodes: '200:299'
+                    )
+                    echo "Response: ${frontendResponse}"
+                }
+            }
+        }
     }
-    //
-    // post {
-    //     success {
-    //         bat 'docker-compose down'
-    //         echo 'Build was successful!'
-    //     }
-    //     failure {
-    //         echo 'Build failed. Check logs.'
-    //     }
-    // }
+    
+    post {
+        success {
+            bat 'docker-compose down'
+            echo 'Build was successful!'
+        }
+        failure {
+            echo 'Build failed. Check logs.'
+        }
+    }
 }
