@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { todoModel } from '../models/todoModel'; // model = acesso ao banco via API
+import { todoModel } from '../models/todoModel';
 
-// Este é o nosso "controller"
 export function useTodoController() {
-  const [todos, setTodos] = useState([]); // estado para guardar as tarefas
+  const [todos, setTodos] = useState([]);
 
   const fetchTodos = async () => {
     const { data } = await todoModel.getAll(); // Extrai o data da resposta JSON automaticamente
-    setTodos(data); // atualiza o estado com as tarefas
+    setTodos(data);
   };
 
   const addTodo = async (title) => {
@@ -18,7 +17,7 @@ export function useTodoController() {
 
   const deleteTodo = async (id) => {
     await todoModel.remove(id);
-    setTodos((prev) => prev.filter((todo) => todo.id !== id)); // remove do estado
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
   // Quando a View for carregada, buscar os dados
@@ -26,6 +25,6 @@ export function useTodoController() {
     fetchTodos();
   }, []);
 
-  // O que este controller entrega pra View?
+  
   return { todos, addTodo, deleteTodo };
 }
