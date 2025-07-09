@@ -15,11 +15,11 @@ pipeline {
                 bat 'docker-compose up -d'
             }
         }
-        // stage('Unit Tests') {
-        //     steps {
-        //         echo 'Running unit tests...'
-        //     }
-        // }
+        stage('Unit Tests') {
+            steps {
+                echo 'Running unit tests...'
+            }
+        }
         // stage('Component Tests') {
         //     steps {
         //         echo 'Running component tests...'
