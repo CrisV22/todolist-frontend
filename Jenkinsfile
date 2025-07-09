@@ -67,24 +67,24 @@ pipeline {
         //         }
         //     }
         // }
-        // stage('Deploy') {
-        //     when {
-        //         anyOf {
-        //             expression { env.GIT_BRANCH == 'origin/main' }
-        //         }
-        //     }
-        //     steps {
-        //         script {
-        //             echo "Deploying..."
-        //             def frontendResponse = httpRequest(
-        //                 url: "${RENDER_FE_DEPLOY_HOOK}",
-        //                 httpMode: 'POST',
-        //                 validResponseCodes: '200:299'
-        //             )
-        //             echo "Response: ${frontendResponse}"
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            when {
+                anyOf {
+                    expression { env.GIT_BRANCH == 'origin/main' }
+                }
+            }
+            steps {
+                script {
+                    echo "Deploying..."
+                    def frontendResponse = httpRequest(
+                        url: "${RENDER_FE_DEPLOY_HOOK}",
+                        httpMode: 'POST',
+                        validResponseCodes: '200:299'
+                    )
+                    echo "Response: ${frontendResponse}"
+                }
+            }
+        }
     }
     
     post {
