@@ -7,7 +7,7 @@ export function TodoListView() {
 
   return (
     <main>
-      <h1>Lista de Tarefas</h1>
+      <h1>Todolist</h1>
       <TodoInput onAdd={addTodo} />
       <ul>
         {todos.map((todo) => (
