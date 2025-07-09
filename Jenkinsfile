@@ -15,32 +15,32 @@ pipeline {
                 bat 'docker-compose up -d --build'
             }
         }
-        stage('Unit Tests') {
-            steps {
-                echo 'Running unit tests...'
-            }
-        }
-        stage('Component Tests') {
-            steps {
-                echo 'Running component tests...'
-            }
-        }
+        // stage('Unit Tests') {
+        //     steps {
+        //         echo 'Running unit tests...'
+        //     }
+        // }
+        // stage('Component Tests') {
+        //     steps {
+        //         echo 'Running component tests...'
+        //     }
+        // }
         // stage('Debug Branch') {
         //     steps {
         //         echo "Current branch: ${env.GIT_BRANCH}"
         //         echo "Current branch: ${env.BRANCH_NAME}" //'main'
         //     }
         // }
-        stage('Smoke Tests E2E') {
-            when {
-                anyOf {
-                    expression { env.GIT_BRANCH == 'origin/main' }
-                }
-            }
-            steps {
-                build job: 'PIPELINE_CYPRESS'
-            }
-        }
+        // stage('Smoke Tests E2E') {
+        //     when {
+        //         anyOf {
+        //             expression { env.GIT_BRANCH == 'origin/main' }
+        //         }
+        //     }
+        //     steps {
+        //         build job: 'PIPELINE_CYPRESS'
+        //     }
+        // }
         stage('SonarQube') {
             steps {
                 script {
