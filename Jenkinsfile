@@ -25,12 +25,12 @@ pipeline {
                 echo 'Running component tests...'
             }
         }
-        stage('Debug Branch') {
-            steps {
-                echo "Current branch: ${env.GIT_BRANCH}"
-                echo "Current branch: ${env.BRANCH_NAME}" //'main'
-            }
-        }
+        // stage('Debug Branch') {
+        //     steps {
+        //         echo "Current branch: ${env.GIT_BRANCH}"
+        //         echo "Current branch: ${env.BRANCH_NAME}" //'main'
+        //     }
+        // }
         stage('Smoke Tests E2E') {
             when {
                 anyOf {
