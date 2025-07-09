@@ -12,19 +12,19 @@ pipeline {
             steps {
                 echo 'Building containers...'
                 bat 'npm install'
-                bat 'docker-compose up -d --build'
+                bat 'docker-compose up -d'
             }
         }
-        stage('Unit Tests') {
-            steps {
-                echo 'Running unit tests...'
-            }
-        }
-        stage('Component Tests') {
-            steps {
-                echo 'Running component tests...'
-            }
-        }
+        // stage('Unit Tests') {
+        //     steps {
+        //         echo 'Running unit tests...'
+        //     }
+        // }
+        // stage('Component Tests') {
+        //     steps {
+        //         echo 'Running component tests...'
+        //     }
+        // }
         // stage('Debug Branch') {
         //     steps {
         //         echo "Current branch: ${env.GIT_BRANCH}"
@@ -67,24 +67,24 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            when {
-                anyOf {
-                    expression { env.GIT_BRANCH == 'origin/main' }
-                }
-            }
-            steps {
-                script {
-                    echo "Deploying..."
-                    def frontendResponse = httpRequest(
-                        url: "${RENDER_FE_DEPLOY_HOOK}",
-                        httpMode: 'POST',
-                        validResponseCodes: '200:299'
-                    )
-                    echo "Response: ${frontendResponse}"
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     when {
+        //         anyOf {
+        //             expression { env.GIT_BRANCH == 'origin/main' }
+        //         }
+        //     }
+        //     steps {
+        //         script {
+        //             echo "Deploying..."
+        //             def frontendResponse = httpRequest(
+        //                 url: "${RENDER_FE_DEPLOY_HOOK}",
+        //                 httpMode: 'POST',
+        //                 validResponseCodes: '200:299'
+        //             )
+        //             echo "Response: ${frontendResponse}"
+        //         }
+        //     }
+        // }
     }
     
     post {
@@ -93,7 +93,7 @@ pipeline {
             echo 'Build was successful!'
         }
         failure {
-            echo 'Build failed. Check logs.'
+            echo 'Pipeline failed. Check logs.'
         }
     }
 }

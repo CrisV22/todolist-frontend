@@ -16,9 +16,9 @@ export function TodoInput({ onAdd }) {
         id='nome-todo'
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Digite uma tarefa"
+        placeholder="Type a todo"
       />
-      <button id='add-button' onClick={handleAdd}>Adicionar</button>
+      <button id='add-button' onClick={handleAdd}>Add</button>
     </div>
   );
 }
