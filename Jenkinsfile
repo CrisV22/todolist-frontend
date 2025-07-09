@@ -40,7 +40,7 @@ pipeline {
         //     steps {
         //         build job: 'PIPELINE_CYPRESS'
         //     }
-        // } //
+        // }
         // stage('SonarQube') {
         //     steps {
         //         script {
